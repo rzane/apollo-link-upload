@@ -1,4 +1,4 @@
-import { isFileList } from './files';
+import { isFileList } from "./files";
 
 export const join = (left: string, right: string | number) => {
   return left ? `${left}.${right}` : right.toString();

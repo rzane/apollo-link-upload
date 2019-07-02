@@ -1,2 +1,2 @@
-export * from './files';
-export * from './extractFiles';
+export * from "./files";
+export * from "./extractFiles";

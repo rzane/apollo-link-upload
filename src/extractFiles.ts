@@ -1,5 +1,5 @@
-import { map, join } from './utils';
-import { AnyFile, isFileLike } from './files';
+import { map, join } from "./utils";
+import { AnyFile, isFileLike } from "./files";
 
 export interface ExtractFile {
   path: string;
@@ -11,7 +11,7 @@ export interface ExtractFiles {
   files: ExtractFile[];
 }
 
-export const extractFiles = (value: any, path: string = ''): ExtractFiles => {
+export const extractFiles = (value: any, path: string = ""): ExtractFiles => {
   if (isFileLike(value)) {
     return { value: path, files: [{ path, file: value }] };
   }
