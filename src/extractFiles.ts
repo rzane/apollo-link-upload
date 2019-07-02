@@ -7,21 +7,21 @@ export interface ExtractFile {
 }
 
 export interface ExtractFiles {
-  value: any;
+  variables: any;
   files: ExtractFile[];
 }
 
-export const extractFiles = (value: any, path: string = ""): ExtractFiles => {
-  if (isFileLike(value)) {
-    return { value: path, files: [{ path, file: value }] };
+export const extractFiles = (variables: any, path: string = ""): ExtractFiles => {
+  if (isFileLike(variables)) {
+    return { variables: path, files: [{ path, file: variables }] };
   }
 
   const files: ExtractFile[] = [];
-  const nextValue = map(value, (v, k) => {
+  const mapped = map(variables, (v, k) => {
     const result = extractFiles(v, join(path, k));
     files.push(...result.files);
-    return result.value;
+    return result.variables;
   });
 
-  return { value: nextValue, files };
+  return { variables: mapped, files };
 };

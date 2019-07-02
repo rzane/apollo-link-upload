@@ -15,16 +15,21 @@
     "format": "prettier --write '{src,test}/**/*.ts'",
     "prepublishOnly": "tsdx test && tsdx build"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "apollo-link": "^1.2.12",
+    "apollo-link-http": "^1.5.15",
+    "apollo-link-http-common": "^0.2.14",
+    "graphql": "^14.4.1"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.15",
+    "apollo-link": "^1.2.12",
+    "apollo-link-http": "^1.5.15",
+    "apollo-link-http-common": "^0.2.14",
+    "graphql": "^14.4.1",
     "prettier": "^1.18.2",
     "tsdx": "^0.7.2",
     "tslib": "^1.10.0",
     "typescript": "^3.5.2"
-  },
-  "dependencies": {
-    "@types/extract-files": "^3.1.0",
-    "extract-files": "^5.0.1"
   }
 }
