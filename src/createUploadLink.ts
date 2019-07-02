@@ -11,6 +11,10 @@ import {
   createSignalIfSupported
 } from "apollo-link-http-common";
 
+/**
+ * Creates a terminating link that will convert the variables
+ * into form data if the request contains any files.
+ */
 export const createUploadLink = ({
   uri: fetchUri = "/graphql",
   fetch: fetcher = fetch,

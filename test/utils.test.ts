@@ -1,9 +1,14 @@
 import { isFileLike } from "../src/utils";
-
-const file = new File([], "foo.txt");
+import { ReactNativeFile } from "../src/ReactNativeFile";
 
 describe("isFileLike", () => {
   it("recognizes a file", () => {
+    const file = new File([], "foo.txt");
+    expect(isFileLike(file)).toBe(true);
+  });
+
+  it('recognizes a react native file', () => {
+    const file = new ReactNativeFile({ uri: 'foo', name: "bar", type: "buzz" });
     expect(isFileLike(file)).toBe(true);
   });
 
