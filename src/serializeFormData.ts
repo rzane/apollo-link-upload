@@ -1,5 +1,5 @@
-import { Body, serializeFetchParameter } from "apollo-link-http-common";
 import { ExtractFile } from "./extractFiles";
+import { Body, serializeFetchParameter } from "apollo-link-http-common";
 
 export interface UploadBody extends Body {
   files: ExtractFile[];
@@ -27,7 +27,7 @@ export const serializeFormData = (body: UploadBody) => {
   }
 
   body.files.forEach(({ path, file}) => {
-    form.append(path, file)
+    form.append(path, file as any)
   });
 
   return form;

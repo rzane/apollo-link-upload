@@ -47,7 +47,12 @@ export const createUploadLink = ({
 
     if (extracted.files.length) {
       delete options.headers["content-type"];
-      options.body = serializeFormData({ ...body, ...extracted });
+
+      options.body = serializeFormData({
+        ...body,
+        variables: extracted.clone,
+        files: extracted.files
+      });
     } else {
       options.body = serializeFetchParameter(body, "Payload");
     }
