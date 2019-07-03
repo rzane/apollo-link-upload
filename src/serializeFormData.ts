@@ -27,7 +27,7 @@ export const serializeFormData = (body: UploadBody) => {
   }
 
   body.files.forEach(({ path, file}) => {
-    form.append(path, file as any)
+    form.append(path, file as File, (file as File).name)
   });
 
   return form;
