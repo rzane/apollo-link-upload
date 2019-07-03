@@ -1,4 +1,4 @@
-# apollo-link-upload
+# apollo-link-upload [![Build Status](https://travis-ci.org/rzane/apollo-link-upload.svg?branch=master)](https://travis-ci.org/rzane/apollo-link-upload)
 
 This package can be used to perform file uploads. It is compatible with Absinthe and GraphQL::Extras.
 
