@@ -1,13 +1,13 @@
 import { ReactNativeFile } from "./ReactNativeFile";
 
-export interface ExtractFile {
+export interface FilePath {
   path: string;
   file: File | Blob | ReactNativeFile;
 }
 
 export interface ExtractFiles {
   clone: any;
-  files: ExtractFile[];
+  files: FilePath[];
 }
 
 const isPlainObject = (value: any) => value && value.constructor === Object;
@@ -43,7 +43,7 @@ export const extractFiles = (variables: any, path: string = ""): ExtractFiles =>
     return { clone: path, files: [{ path, file: variables }] };
   }
 
-  const files: ExtractFile[] = [];
+  const files: FilePath[] = [];
   const clone = map(variables, (v, k) => {
     const inner = extractFiles(v, join(path, k));
     files.push(...inner.files);
