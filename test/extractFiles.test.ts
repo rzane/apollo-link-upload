@@ -1,6 +1,23 @@
 import { extractFiles } from "../src/extractFiles";
 
+class MockFileList {
+  private files: File[];
+
+  constructor(files: File[]) {
+    this.files = files
+  }
+
+  *[Symbol.iterator]() {
+    for (const file of this.files) {
+      yield file
+    }
+  }
+}
+
+(global as any).FileList = MockFileList;
+
 const file = new File([], "foo.txt");
+const fileList = new MockFileList([file]);
 
 describe("extractFiles", () => {
   it("extracts a file", () => {
@@ -21,6 +38,13 @@ describe("extractFiles", () => {
     expect(extractFiles({ foo: file })).toEqual({
       clone: { foo: "foo" },
       files: [{ path: "foo", file }]
+    });
+  });
+
+  it("extracts a FileList", () => {
+    expect(extractFiles({ foo: fileList })).toEqual({
+      clone: { foo: ["foo.0"] },
+      files: [{ path: "foo.0", file }]
     });
   });
 
