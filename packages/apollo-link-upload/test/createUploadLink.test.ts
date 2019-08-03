@@ -63,9 +63,9 @@ describe("createUploadLink", () => {
     });
 
     const formData: FormData = fetch.mock.calls[0][1].body;
-    expect(formData.get("image")).toEqual(file);
     expect(formData.get("query")).toEqual("mutation Hello {\n  foo\n}\n");
-    expect(formData.get("variables")).toEqual('{"image":"image"}');
+    expect(formData.get("variables")).toEqual('{"image":"variables.image"}');
+    expect(formData.get("variables.image")).toEqual(file);
     expect(formData.get("operationName")).toEqual("Hello");
   });
 });

@@ -14,7 +14,7 @@ class MockFileList {
   }
 }
 
-(global as any).FileList = MockFileList;
+(window as any).FileList = MockFileList;
 
 const file = new File([], "foo.txt");
 const fileList = new MockFileList([file]);
@@ -42,6 +42,9 @@ describe("replaceFiles", () => {
   });
 
   it("replaces a FileList", () => {
+    // sanity check
+    expect(fileList).toBeInstanceOf(FileList);
+
     expect(replaceFiles({ foo: fileList })).toEqual({
       clone: { foo: ["foo.0"] },
       files: [{ path: "foo.0", file }]
