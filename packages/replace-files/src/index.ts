@@ -1,11 +1,13 @@
-export interface FilePath {
+export interface FileInfo {
   path: string;
   file: File | Blob | ReactNativeFile;
 }
 
+export type Replacer = (info: FileInfo) => any;
+
 export interface Result {
   data: any;
-  files: FilePath[];
+  files: FileInfo[];
 }
 
 export interface ReactNativeFileOptions {
@@ -47,12 +49,19 @@ const isObject = (value: any) => {
   return value !== null && typeof value === "object";
 };
 
+const defaultReplacer: Replacer = info => info.path;
+
 /**
  * Extract all of the files from the input data.
  */
-export const replaceFiles = (data: any, path: string = ""): Result => {
+export const replaceFiles = (
+  data: any,
+  replace: Replacer = defaultReplacer,
+  path: string = ""
+): Result => {
   if (isFileLike(data)) {
-    return { data: path, files: [{ path, file: data }] };
+    const info: FileInfo = { path, file: data };
+    return { data: replace(info), files: [info] };
   }
 
   if (Array.isArray(data) || isFileList(data)) {
@@ -60,7 +69,7 @@ export const replaceFiles = (data: any, path: string = ""): Result => {
 
     for (let i = 0; i < data.length; i++) {
       const innerPath = path ? `${path}.${i}` : i.toString();
-      const inner = replaceFiles(data[i], innerPath);
+      const inner = replaceFiles(data[i], replace, innerPath);
       result.data.push(inner.data);
       result.files.push(...inner.files);
     }
@@ -74,7 +83,7 @@ export const replaceFiles = (data: any, path: string = ""): Result => {
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const innerPath = path ? `${path}.${key}` : key.toString();
-        const inner = replaceFiles(data[key], innerPath);
+        const inner = replaceFiles(data[key], replace, innerPath);
         result.data[key] = inner.data;
         result.files.push(...inner.files);
       }

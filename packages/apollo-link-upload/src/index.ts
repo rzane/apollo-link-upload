@@ -1,4 +1,4 @@
-import { replaceFiles, FilePath } from "replace-files";
+import { replaceFiles, FileInfo } from "replace-files";
 import { ApolloLink, Observable } from "apollo-link";
 import {
   Body,
@@ -20,7 +20,7 @@ export { ReactNativeFile } from "replace-files";
 /**
  * Conver the request body to FormData
  */
-const serializeFormData = (body: Body, files: FilePath[]) => {
+const serializeFormData = (body: Body, files: FileInfo[]) => {
   const form = new FormData();
 
   if (body.operationName) {

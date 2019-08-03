@@ -6,16 +6,16 @@ const fileList = new MockFileList([file]);
 
 describe("replaceFiles", () => {
   it("replaces a file", () => {
-    expect(replaceFiles(file, "data")).toEqual({
-      data: "data",
-      files: [{ path: "data", file }]
+    expect(replaceFiles(file)).toEqual({
+      data: "",
+      files: [{ path: "", file }]
     });
   });
 
   it("replaces a list of files", () => {
-    expect(replaceFiles([file], "data")).toEqual({
-      data: ["data.0"],
-      files: [{ path: "data.0", file }]
+    expect(replaceFiles([file])).toEqual({
+      data: ["0"],
+      files: [{ path: "0", file }]
     });
   });
 
@@ -42,6 +42,20 @@ describe("replaceFiles", () => {
     expect(replaceFiles(data)).toEqual({
       data: { foo: [{ bar: { buzz: ["foo.0.bar.buzz.0"] } }] },
       files: [{ file: file, path: "foo.0.bar.buzz.0" }]
+    });
+  });
+
+  it("replaces with a custom replacer", () => {
+    const replacer = jest.fn(() => null);
+
+    expect(replaceFiles({ foo: file }, replacer)).toEqual({
+      data: { foo: null },
+      files: [{ path: "foo", file }]
+    });
+
+    expect(replacer).toHaveBeenCalledWith({
+      path: "foo",
+      file
     });
   });
 
