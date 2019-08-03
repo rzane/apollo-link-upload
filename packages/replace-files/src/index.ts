@@ -34,15 +34,18 @@ export class ReactNativeFile {
  * Utilities
  */
 
-const isObject = (value: any) => value !== null && typeof value === "object";
-
 const isFileLike = (value: any) =>
   (typeof File !== "undefined" && value instanceof File) ||
   (typeof Blob !== "undefined" && value instanceof Blob) ||
   value instanceof ReactNativeFile;
 
-const isFileList = (value: any) =>
-  typeof FileList !== "undefined" && value instanceof FileList;
+const isFileList = (value: any) => {
+  return typeof FileList !== "undefined" && value instanceof FileList;
+};
+
+const isObject = (value: any) => {
+  return value !== null && typeof value === "object";
+};
 
 /**
  * Extract all of the files from the input data.
