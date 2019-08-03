@@ -1,0 +1,22 @@
+{
+  "name": "apollo-link-upload",
+  "license": "MIT",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf ./lib",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "apollo-link": "^1.2.12",
+    "apollo-link-http-common": "^0.2.14"
+  },
+  "peerDependencies": {
+    "graphql": "*"
+  }
+}

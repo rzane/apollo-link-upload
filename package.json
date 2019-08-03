@@ -1,34 +1,49 @@
 {
-  "name": "apollo-link-upload",
+  "name": "graphql-file-uploads",
+  "version": "0.0.0",
   "license": "MIT",
-  "version": "0.1.0",
-  "main": "dist/index.js",
-  "module": "dist/apollo-link-upload.esm.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist"
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
+  "jest": {
+    "preset": "ts-jest",
+    "projects": [
+      "packages/*"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "format": "prettier --write '{src,test}/**/*.ts'",
-    "prepublishOnly": "tsdx test && tsdx build"
-  },
-  "dependencies": {
-    "apollo-link": "^1.2.12",
-    "apollo-link-http-common": "^0.2.14"
-  },
-  "peerDependencies": {
-    "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0"
+    "prerelease": "bin/clean && bin/build",
+    "release": "lerna publish",
+    "postinstall": "bin/build",
+    "build": "bin/build",
+    "clean": "bin/clean",
+    "test": "jest",
+    "format": "prettier --write '**/*.{js,ts,tsx}'",
+    "format:check": "prettier --check '**/*.{js,ts,tsx}'"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.15",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "@types/graphql": "^14.2.3",
+    "@types/jest": "^24.0.16",
     "graphql": "^14.4.1",
     "graphql-tag": "^2.10.1",
+    "jest": "^24.8.0",
+    "lerna": "^3.16.4",
+    "lodash": "^4.17.15",
     "prettier": "^1.18.2",
-    "tsdx": "^0.7.2",
-    "tslib": "^1.10.0",
-    "typescript": "^3.5.2"
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
   }
 }
