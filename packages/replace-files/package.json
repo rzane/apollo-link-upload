@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "prebuild": "rm -rf ./lib",
-    "build": "tsc"
+    "build": "tsc",
+    "bench": "tsc && node bench"
   },
   "jest": {
     "preset": "ts-jest",
