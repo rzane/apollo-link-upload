@@ -11,5 +11,8 @@
   "scripts": {
     "prebuild": "rm -rf ./lib",
     "build": "tsc"
+  },
+  "jest": {
+    "preset": "ts-jest"
   }
 }

@@ -7,7 +7,6 @@
     "packages/*"
   ],
   "jest": {
-    "preset": "ts-jest",
     "projects": [
       "packages/*"
     ]

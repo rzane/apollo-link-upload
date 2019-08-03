@@ -12,6 +12,9 @@
     "prebuild": "rm -rf ./lib",
     "build": "tsc"
   },
+  "jest": {
+    "preset": "ts-jest"
+  },
   "dependencies": {
     "apollo-link": "^1.2.12",
     "apollo-link-http-common": "^0.2.14",
