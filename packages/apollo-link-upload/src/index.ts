@@ -28,16 +28,17 @@ const serializeFormData = (body: Body, files: FileInfo[]) => {
   }
 
   if (body.variables) {
-    const variables = serializeFetchParameter(body.variables, "Variables");
-    form.append("variables", variables);
+    form.append(
+      "variables",
+      serializeFetchParameter(body.variables, "Variables")
+    );
   }
 
   if (body.extensions) {
-    const extensions = serializeFetchParameter(
-      body.extensions,
-      "Extensions map"
+    form.append(
+      "extensions",
+      serializeFetchParameter(body.extensions, "Extensions map")
     );
-    form.append("extensions", extensions);
   }
 
   files.forEach(({ path, file }) => {
