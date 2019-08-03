@@ -34,7 +34,7 @@ export class ReactNativeFile {
  * Utilities
  */
 
-const isObject = (value: any) => value && value.constructor === Object;
+const isObject = (value: any) => value !== null && typeof value === "object";
 
 const isFileLike = (value: any) =>
   (typeof File !== "undefined" && value instanceof File) ||
@@ -44,41 +44,46 @@ const isFileLike = (value: any) =>
 const isFileList = (value: any) =>
   typeof FileList !== "undefined" && value instanceof FileList;
 
-const join = (left: string, right: string | number) =>
-  left ? `${left}.${right}` : right.toString();
-
-const mapValues = (value: any, fn: (v: any, k: string) => any) =>
-  Object.entries(value).reduce(
-    (acc, [k, v]) => Object.assign(acc, { [k]: fn(v, k) }),
-    {}
-  );
-
-const map = (value: any, fn: (v: any, k: string | number) => any) =>
-  Array.isArray(value)
-    ? value.map(fn)
-    : isObject(value)
-    ? mapValues(value, fn)
-    : isFileList(value)
-    ? Array.from(value).map(fn)
-    : value;
-
 /**
  * Extract all of the files from the input data.
  */
 export const replaceFiles = (
-  variables: any,
+  data: any,
   path: string = ""
 ): FileReplacements => {
-  if (isFileLike(variables)) {
-    return { clone: path, files: [{ path, file: variables }] };
+  if (isFileLike(data)) {
+    return { clone: path, files: [{ path, file: data }] };
   }
 
-  const files: FilePath[] = [];
-  const clone = map(variables, (v, k) => {
-    const inner = replaceFiles(v, join(path, k));
-    files.push(...inner.files);
-    return inner.clone;
-  });
+  if (Array.isArray(data) || isFileList(data)) {
+    const clone: any = [];
+    const files: FilePath[] = [];
 
-  return { clone, files };
+    for (let i = 0; i < data.length; i++) {
+      const innerPath = path ? `${path}.${i}` : i.toString();
+      const inner = replaceFiles(data[i], innerPath);
+      clone.push(inner.clone);
+      files.push(...inner.files);
+    }
+
+    return { clone, files };
+  }
+
+  if (isObject(data)) {
+    const clone: any = {};
+    const files: FilePath[] = [];
+
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        const innerPath = path ? `${path}.${key}` : key.toString();
+        const inner = replaceFiles(data[key], innerPath);
+        clone[key] = inner.clone;
+        files.push(...inner.files);
+      }
+    }
+
+    return { clone, files };
+  }
+
+  return { clone: data, files: [] };
 };
