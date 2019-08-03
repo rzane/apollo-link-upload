@@ -1,20 +1,5 @@
 import { replaceFiles } from "../src";
-
-class MockFileList {
-  private files: File[];
-
-  constructor(files: File[]) {
-    this.files = files;
-  }
-
-  *[Symbol.iterator]() {
-    for (const file of this.files) {
-      yield file;
-    }
-  }
-}
-
-(window as any).FileList = MockFileList;
+import { MockFileList } from "./setup";
 
 const file = new File([], "foo.txt");
 const fileList = new MockFileList([file]);

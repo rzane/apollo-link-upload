@@ -13,6 +13,9 @@
     "build": "tsc"
   },
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setup.ts"
+    ]
   }
 }
