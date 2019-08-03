@@ -3,8 +3,8 @@ export interface FilePath {
   file: File | Blob | ReactNativeFile;
 }
 
-export interface FileReplacements {
-  clone: any;
+export interface Result {
+  data: any;
   files: FilePath[];
 }
 
@@ -47,43 +47,38 @@ const isFileList = (value: any) =>
 /**
  * Extract all of the files from the input data.
  */
-export const replaceFiles = (
-  data: any,
-  path: string = ""
-): FileReplacements => {
+export const replaceFiles = (data: any, path: string = ""): Result => {
   if (isFileLike(data)) {
-    return { clone: path, files: [{ path, file: data }] };
+    return { data: path, files: [{ path, file: data }] };
   }
 
   if (Array.isArray(data) || isFileList(data)) {
-    const clone: any = [];
-    const files: FilePath[] = [];
+    const result: Result = { data: [], files: [] };
 
     for (let i = 0; i < data.length; i++) {
       const innerPath = path ? `${path}.${i}` : i.toString();
       const inner = replaceFiles(data[i], innerPath);
-      clone.push(inner.clone);
-      files.push(...inner.files);
+      result.data.push(inner.data);
+      result.files.push(...inner.files);
     }
 
-    return { clone, files };
+    return result;
   }
 
   if (isObject(data)) {
-    const clone: any = {};
-    const files: FilePath[] = [];
+    const result: Result = { data: {}, files: [] };
 
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
         const innerPath = path ? `${path}.${key}` : key.toString();
         const inner = replaceFiles(data[key], innerPath);
-        clone[key] = inner.clone;
-        files.push(...inner.files);
+        result.data[key] = inner.data;
+        result.files.push(...inner.files);
       }
     }
 
-    return { clone, files };
+    return result;
   }
 
-  return { clone: data, files: [] };
+  return { data, files: [] };
 };

@@ -87,11 +87,11 @@ export const createUploadLink = ({
       contextConfig
     );
 
-    const { clone, files } = replaceFiles(body);
+    const { data, files } = replaceFiles(body);
 
     if (files.length) {
       delete options.headers["content-type"];
-      options.body = serializeFormData(clone, files);
+      options.body = serializeFormData(data, files);
     } else {
       options.body = serializeFetchParameter(body, "Payload");
     }
