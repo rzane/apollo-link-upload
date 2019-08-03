@@ -1,5 +1,5 @@
 {
-  "name": "apollo-link-upload",
+  "name": "replace-files",
   "license": "MIT",
   "version": "0.1.0",
   "main": "lib/index.js",
@@ -11,13 +11,5 @@
   "scripts": {
     "prebuild": "rm -rf ./lib",
     "build": "tsc"
-  },
-  "dependencies": {
-    "apollo-link": "^1.2.12",
-    "apollo-link-http-common": "^0.2.14",
-    "replace-files": "^0.1.0"
-  },
-  "peerDependencies": {
-    "graphql": "*"
   }
 }

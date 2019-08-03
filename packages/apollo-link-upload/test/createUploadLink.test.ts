@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import { execute } from "apollo-link";
-import { createUploadLink } from "../src/createUploadLink";
+import { createUploadLink } from "../src";
 
 const file = new File([], "foo.txt");
 const data = { data: { hello: "world" } };
@@ -64,8 +64,8 @@ describe("createUploadLink", () => {
 
     const formData: FormData = fetch.mock.calls[0][1].body;
     expect(formData.get("image")).toEqual(file);
-    expect(formData.get('query')).toEqual('mutation Hello {\n  foo\n}\n');
-    expect(formData.get('variables')).toEqual('{"image":"image"}');
-    expect(formData.get("operationName")).toEqual('Hello');
+    expect(formData.get("query")).toEqual("mutation Hello {\n  foo\n}\n");
+    expect(formData.get("variables")).toEqual('{"image":"image"}');
+    expect(formData.get("operationName")).toEqual("Hello");
   });
 });
