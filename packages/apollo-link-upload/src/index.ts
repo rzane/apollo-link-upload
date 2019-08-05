@@ -42,7 +42,7 @@ const serializeFormData = (body: Body, files: FileInfo[]) => {
   }
 
   files.forEach(({ path, file }) => {
-    form.append(path, file as File, (file as File).name);
+    form.append(path, file as any, file.name);
   });
 
   return form;

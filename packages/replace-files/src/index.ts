@@ -1,6 +1,11 @@
+export interface FileLike extends Blob {
+  readonly lastModified?: number;
+  readonly name?: string;
+}
+
 export interface FileInfo {
   path: string;
-  file: File | Blob | ReactNativeFile;
+  file: FileLike | ReactNativeFile;
 }
 
 export type Replacer = (info: FileInfo) => any;
