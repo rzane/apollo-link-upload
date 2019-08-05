@@ -11,9 +11,9 @@ export interface Result {
 }
 
 export interface ReactNativeFileOptions {
-  uri?: string;
-  name?: string;
-  type?: string;
+  uri: string;
+  name: string;
+  type: string;
 }
 
 /**
