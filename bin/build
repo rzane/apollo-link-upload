@@ -1,3 +1,0 @@
-#!/bin/bash
-
-node_modules/.bin/tsc -b packages/replace-files packages/apollo-link-upload

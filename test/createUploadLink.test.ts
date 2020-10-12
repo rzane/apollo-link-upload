@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { execute } from "apollo-link";
+import { execute } from "@apollo/client/link/core";
 import { createUploadLink } from "../src";
 
 const file = new File([], "foo.txt");
