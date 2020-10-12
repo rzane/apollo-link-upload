@@ -1,6 +1,6 @@
 import { FileInfo } from "./replaceFiles";
 import { serializeFetchParameter } from "@apollo/client/link/http";
-import type { Body } from "@apollo/client/link/http/selectHttpOptionsAndBody";
+import { Body } from "@apollo/client/link/http/selectHttpOptionsAndBody";
 
 /**
  * Convert the request body to FormData
