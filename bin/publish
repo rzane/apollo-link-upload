@@ -4,6 +4,7 @@ set -euo pipefail
 
 if [ $# -ne 1 ]; then
   echo "Usage: bin/publish [version]"
+  exit 1
 fi
 
 yarn version --new-version "$1" --no-git-tag-version
